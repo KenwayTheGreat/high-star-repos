@@ -1,10 +1,9 @@
 import './App.css';
+import Repositories from './Pages/Repositories';
 
 function App() {
   return (
-    <div className="App">
-     Testing 12345
-    </div>
+    <Repositories />
   );
 }
 
