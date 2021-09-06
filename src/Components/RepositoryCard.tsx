@@ -1,5 +1,7 @@
-import React from 'react'
-import { RepositoryInfo } from '../Pages/Repositories'
+import { RepositoryInfo } from '../Pages/Repositories';
+import Moment from 'react-moment';
+import 'moment-timezone';
+
 
 interface Props {
   repository: RepositoryInfo
@@ -23,20 +25,23 @@ function RepositoryCard(props: Props) {
 
             <div className="row p-1">
               <div className="col-3">
-                <h6>{props.repository.repoStars}</h6>
+                <h6>Stars: {props.repository.repoStars}</h6>
               </div>
 
               <div className="col-3">
-                <h6>{props.repository.repoIssues}</h6>
+                <h6> Issues: {props.repository.repoIssues}</h6>
               </div>
 
-              <div className="col-3">
-                <h6>{props.repository.creationDate}</h6>
+              <div className="col-6">
+                <h6>
+                  created <Moment fromNow>{props.repository.creationDate}</Moment> by {" "}
+                  {props.repository.authorName}
+                </h6>
               </div>
 
-              <div className="col-3">
-                <h6>{props.repository.authorName}</h6>
-              </div>
+
+
+
             </div>
 
           </div>
