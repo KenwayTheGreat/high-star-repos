@@ -12,7 +12,7 @@ The libraries used were as following:\
     - moment and time-zone-moment for date format\
     - react-infinite-scroll-component for pagination
     
-for downloading them if missing just type yarn add and it will add all the missing packages if there is any
+For downloading them if missing just type yarn add and it will add all the missing packages if there is any.
 
 
 # Getting Started with Create React App
