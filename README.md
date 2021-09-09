@@ -1,8 +1,8 @@
 # High stars Repos Project
 
-High stars Repos is a web app that fetches the highest star repositories using the Github API.\
+High stars Repos is a web app that fetches the highest star repositories using the Github API.
 
-The project was made by React TypeScript and fetching the data using REST API.\
+The project was made by React TypeScript and fetching the data using REST API.
 
 The libraries used were as following:\
     - Axios for data fetching\
@@ -10,7 +10,7 @@ The libraries used were as following:\
     - font-awesome for Icons\
     - classNames for using multiple classes\
     - moment and time-zone-moment for date format\
-    - react-infinite-scroll-component for pagination\
+    - react-infinite-scroll-component for pagination
     
 for downloading them if missing just type yarn add and it will add all the missing packages if there is any
 
