@@ -18,6 +18,7 @@ function RepositoryCard(props: Props) {
             <img
               className="border border-1 rounded"
               src={props.repository.authorAvatar}
+              alt="Author Avatar"
               width="150 px"
               height="150 px" />
           </div>

@@ -33,7 +33,7 @@ function Repositories() {
     axios.get(
       'https://api.github.com/search/repositories?' +
       `q=created:>${formatDate(Date.now())}` +
-      '&sort=stars&order=desc' + `&page=${pageNumber}`)
+      `&sort=stars&order=desc&page=${pageNumber}`)
       .then((res) => {
         res.data.items.map((item: {
           name: string;
@@ -46,7 +46,8 @@ function Repositories() {
             avatar_url: string
           }
         }) => {
-          setRepositories((repositories) => [...repositories, {
+          setLoading(false);
+          return (setRepositories((repositories) => [...repositories, {
             repoName: item.name,
             repoDescription: item.description,
             creationDate: item.created_at,
@@ -54,8 +55,7 @@ function Repositories() {
             repoIssues: item.open_issues_count,
             authorName: item.owner.login,
             authorAvatar: item.owner.avatar_url
-          }]);
-          setLoading(false);
+          }]));
         });
       })
 
