@@ -79,7 +79,13 @@ function Repositories() {
       {
         loading &&
         (<div className="row p-1 d-flex justify-content-center">
-          <div className="col-6 text-center">
+          <div className="col-12 text-center">
+            <img src="Images/fidget-spinner.gif"
+              alt="Spinner"
+              width={"128 px"}
+              height={"128 px"} />
+          </div>
+          <div className="col-12 text-center">
             <h3>Loading ...</h3>
           </div>
         </div>)
@@ -91,6 +97,12 @@ function Repositories() {
           hasMore={true}
           loader={loadingMore ?
             <div className="row p-5">
+              <div className="col-12 text-center">
+                <img src="Images/fidget-spinner.gif"
+                  alt="Spinner"
+                  width={"128 px"}
+                  height={"128 px"} />
+              </div>
               <div className="col-12 text-center">
                 <h3>Loading More ...</h3>
               </div>
