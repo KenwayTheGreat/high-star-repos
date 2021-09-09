@@ -20,11 +20,13 @@ export interface RepositoryInfo {
 
 function Repositories() {
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const [repositories, setRepositories] = useState<RepositoryInfo[]>([]);
 
   const fetchMoreRepos = () => {
     setPageNumber(pageNumber + 1);
+    setLoadingMore(true);
   }
 
   useEffect(() => {
@@ -47,6 +49,7 @@ function Repositories() {
           }
         }) => {
           setLoading(false);
+          setLoadingMore(false);
           return (setRepositories((repositories) => [...repositories, {
             repoName: item.name,
             repoDescription: item.description,
@@ -86,11 +89,12 @@ function Repositories() {
         (<InfiniteScroll
           next={fetchMoreRepos}
           hasMore={true}
-          loader={<div className="row p-5">
-            <div className="col-12 text-center">
-              <h3>Loading More ...</h3>
-            </div>
-          </div>}
+          loader={loadingMore ?
+            <div className="row p-5">
+              <div className="col-12 text-center">
+                <h3>Loading More ...</h3>
+              </div>
+            </div> : <div />}
 
           dataLength={repositories.length} >
           <div className="row d-flex justify-content-center">
