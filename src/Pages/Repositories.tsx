@@ -1,9 +1,12 @@
+import '../Styles/RepositoryPage.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import RepositoryCard from '../Components/RepositoryCard';
 import { formatDate } from '../Functionalities/HelperFunctions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import InfiniteScroll from "react-infinite-scroll-component";
+
 
 export interface RepositoryInfo {
   repoName: string,
@@ -17,17 +20,21 @@ export interface RepositoryInfo {
 
 function Repositories() {
   const [loading, setLoading] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
   const [repositories, setRepositories] = useState<RepositoryInfo[]>([]);
 
+  const fetchMoreRepos = () => {
+    setPageNumber(pageNumber + 1);
+  }
 
   useEffect(() => {
     setLoading(true);
 
     axios.get(
-      `https://api.github.com/search/repositories?q=created:>${formatDate(Date.now())}&sort=stars&order=desc`)
+      'https://api.github.com/search/repositories?' +
+      `q=created:>${formatDate(Date.now())}` +
+      '&sort=stars&order=desc' + `&page=${pageNumber}`)
       .then((res) => {
-      
-
         res.data.items.map((item: {
           name: string;
           description: string;
@@ -52,28 +59,48 @@ function Repositories() {
         });
       })
 
-  }, []);
+  }, [pageNumber]);
 
   return (
     <>
-      <div className="row p-5">
+      <div className="row py-5">
         <div className="col-12 text-center">
-          <h1>Highest <FontAwesomeIcon icon={faStar} /> Repos</h1>
+          <h1>Highest {" "}
+            <FontAwesomeIcon
+              className="star-icon"
+              icon={faStar} /> {" "}
+            Repositories
+          </h1>
         </div>
       </div>
-      {loading ?
+      {
+        loading &&
         (<div className="row p-1 d-flex justify-content-center">
           <div className="col-6 text-center">
             <h3>Loading ...</h3>
           </div>
-        </div>) :
-        (<div className="row">
-          {repositories.map((repository, index) => (
-            <RepositoryCard
-              key={index}
-              repository={repository} />
-          ))}
-        </div>)}
+        </div>)
+      }
+
+      {
+        (<InfiniteScroll
+          next={fetchMoreRepos}
+          hasMore={true}
+          loader={<div className="row p-5">
+            <div className="col-12 text-center">
+              <h3>Loading More ...</h3>
+            </div>
+          </div>}
+
+          dataLength={repositories.length} >
+          <div className="row d-flex justify-content-center">
+            {repositories.map((repository, index) => (
+              <RepositoryCard
+                key={index}
+                repository={repository} />
+            ))}
+          </div>
+        </InfiniteScroll>)}
     </>
   )
 }
